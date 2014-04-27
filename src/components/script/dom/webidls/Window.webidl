@@ -79,3 +79,9 @@ interface WindowTimers {
   void clearInterval(optional long handle = 0);*/
 };
 Window implements WindowTimers;
+
+[NoInterfaceObject]
+interface WindowSessionStorage {
+  readonly attribute Storage sessionStorage;
+};
+Window implements WindowSessionStorage;

@@ -3555,7 +3555,7 @@ class CGDOMJSProxyHandler_getOwnPropertyDescriptor(CGAbstractExternMethod):
                                     "    return 1;\n" +
                                     "  }\n")
             if self.descriptor.operations['NamedSetter']:
-                setOrIndexedGet += "  if RUST_JSID_IS_STRING(id) {\n"
+                setOrIndexedGet += "  if RUST_JSID_IS_STRING(id) != 0 {\n"
                 if not 'NamedCreator' in self.descriptor.operations:
                     # FIXME need to check that this is a 'supported property name'
                     assert False

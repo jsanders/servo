@@ -11,6 +11,7 @@ use dom::document::Document;
 use dom::element::Element;
 use dom::eventtarget::{EventTarget, WindowTypeId};
 use dom::console::Console;
+use dom::storage::Storage;
 use dom::location::Location;
 use dom::navigator::Navigator;
 
@@ -72,6 +73,7 @@ pub struct Window {
     pub script_chan: ScriptChan,
     pub console: Option<JS<Console>>,
     pub location: Option<JS<Location>>,
+    pub sessionStorage: Option<JS<Storage>>,
     pub navigator: Option<JS<Navigator>>,
     pub image_cache_task: ImageCacheTask,
     pub active_timers: ~HashMap<i32, TimerHandle>,
@@ -173,6 +175,13 @@ impl Window {
             self.console = Some(Console::new(abstract_self));
         }
         self.console.get_ref().clone()
+    }
+
+    pub fn SessionStorage(&mut self, abstract_self: &JS<Window>) -> JS<Storage> {
+        if self.sessionStorage.is_none() {
+            self.sessionStorage = Some(Storage::new(abstract_self));
+        }
+        self.sessionStorage.get_ref().clone()
     }
 
     pub fn Navigator(&mut self, abstract_self: &JS<Window>) -> JS<Navigator> {
@@ -320,6 +329,7 @@ impl Window {
             eventtarget: EventTarget::new_inherited(WindowTypeId),
             script_chan: script_chan,
             console: None,
+            sessionStorage: None,
             compositor: Untraceable::new(compositor),
             page: page.clone(),
             location: None,

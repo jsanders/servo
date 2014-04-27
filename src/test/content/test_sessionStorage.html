@@ -1,0 +1,13 @@
+<html>
+<head>
+  <title></title>
+  <script src="harness.js"></script>
+</head>
+<body>
+  <script>
+    window.sessionStorage.setItem("foo", "bar");
+    is(window.sessionStorage.getItem("foo"), "bar");
+    finish();
+  </script>
+</body>
+</html>
