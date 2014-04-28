@@ -3643,7 +3643,7 @@ class CGDOMJSProxyHandler_defineProperty(CGAbstractExternMethod):
                 raise TypeError("Can't handle creator that's different from the setter")
             set += ("if RUST_JSID_IS_STRING(id) != 0 {\n" +
                     "  let name = Some(jsid_to_str(cx, id));\n" +
-                    "  let this: *%s = UnwrapProxy(proxy);\n" +
+                    "  let this: *mut %s = cast::transmute_mut_unsafe(UnwrapProxy(proxy));\n" +
                     CGIndenter(CGProxyNamedSetter(self.descriptor)).define() + "\n" +
                     "}\n") % (self.descriptor.concreteType)
         elif self.descriptor.operations['NamedGetter']:

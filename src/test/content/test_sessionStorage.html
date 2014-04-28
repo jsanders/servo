@@ -5,8 +5,57 @@
 </head>
 <body>
   <script>
+    // Insert
     window.sessionStorage.setItem("foo", "bar");
     is(window.sessionStorage.getItem("foo"), "bar");
+    // FIXME(jsanders): These don't work because they don't pass through NamedGetter
+    // is(window.sessionStorage["foo"], "bar");
+    // is(window.sessionStorage.foo, "bar");
+
+    window.sessionStorage.baz = "qux";
+    is(window.sessionStorage.getItem("baz"), "qux");
+    is(window.sessionStorage["baz"], "qux");
+    is(window.sessionStorage.baz, "qux");
+
+    window.sessionStorage["wibble"] = "wobble";
+    is(window.sessionStorage.getItem("wibble"), "wobble");
+    is(window.sessionStorage["wibble"], "wobble");
+    is(window.sessionStorage.wibble, "wobble");
+
+    // Update
+    window.sessionStorage.setItem("foo", "baar");
+    is(window.sessionStorage.getItem("foo"), "baar");
+    // FIXME(jsanders): These don't work because they don't pass through NamedGetter
+    // is(window.sessionStorage["foo"], "baar");
+    // is(window.sessionStorage.foo, "baar");
+
+    window.sessionStorage.baz = "quux";
+    is(window.sessionStorage.getItem("baz"), "quux");
+    is(window.sessionStorage["baz"], "quux");
+    is(window.sessionStorage.baz, "quux");
+
+    window.sessionStorage["wibble"] = "woobble";
+    is(window.sessionStorage.getItem("wibble"), "woobble");
+    is(window.sessionStorage["wibble"], "woobble");
+    is(window.sessionStorage.wibble, "woobble");
+
+    // Length
+    is(window.sessionStorage.length, 3);
+
+    // Key
+    is_not(window.sessionStorage.key(0), null);
+    is_not(window.sessionStorage.key(1), null);
+    is_not(window.sessionStorage.key(2), null);
+    is(window.sessionStorage.key(4), null);
+
+    // Clear
+    window.sessionStorage.clear();
+    is(window.sessionStorage.length, 0);
+    is(window.sessionStorage.key(0), null);
+    is(window.sessionStorage.getItem("foo"), null);
+    is(window.sessionStorage.getItem("baz"), null);
+    is(window.sessionStorage.getItem("wibble"), null);
+
     finish();
   </script>
 </body>
